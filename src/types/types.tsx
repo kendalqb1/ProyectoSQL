@@ -53,3 +53,16 @@ export type BackupInfo = {
     INPUT_BYTES_DISPLAY: string;
 }
 
+export interface DataStructure {
+    statusDesc: string;
+    consultas_uso_recurso: never[];
+    consultas_uso_memoria: never[];
+    esperas_recursos: never[];
+    eventos_espera_critico: never[];
+    recursos_sesion: never[];
+    uso_memoria: never[];
+    uso_cpu: never[];
+    conexiones_activas: { /* define inner structure here */ }[];
+    // Add other properties as needed
+  }
+
