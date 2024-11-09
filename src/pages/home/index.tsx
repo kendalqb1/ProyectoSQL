@@ -284,9 +284,7 @@ const Home = () => {
                     Ultimo Backup
                   </Typography>
                   <div>
-                    {isLoading && <p>Cargando...</p>}
-                    {error && <p>Error: {error}</p>}
-                    {!isLoading && !error && (ultimaFechaBackup !== null) && (
+                    {(ultimaFechaBackup !== null) && (
                       <>
                         <CardContent>
                           <Typography sx={{ color: 'text.secondary' }}> Fecha</Typography>
@@ -308,269 +306,292 @@ const Home = () => {
                           </Typography>
                         </CardContent>
                       </>
-
-
-                    )}
-                    {!isLoading && !error && ultimaFechaBackup === null && (
-                      <p>No hay backups recientes.</p>
                     )}
                   </div>
                 </Box>
               </Grid>
             )
           }
-          <Grid size={{ xs: 12, md: 6 }}>
-            <Box p={2} sx={boxStyle}>
-              <Typography variant="h6" mb={2}>
-                Latencia Promedio
-              </Typography>
-              <Chart
-                options={barChartOptionsLatencia}
-                series={barChartDataLatencia}
-                type="bar"
-                height={250}
-              />
-            </Box>
-          </Grid>
-          <Grid size={{ xs: 12, md: 6 }}>
-            <Box p={2} sx={boxStyle}>
-              <Typography variant="h6" mb={2}>
-                Uso de Memoria
-              </Typography>
-              {isLoading ? (
-                <Typography>Loading...</Typography>
-              ) : error ? (
-                <Typography color="error">{error}</Typography>
-              ) : (
-                <Chart options={lineChartOptionsMemoria} series={lineChartDataMemoria} type="line" height={250} />
-              )}
-            </Box>
-          </Grid>
-          <Grid size={{ xs: 12, md: 4 }}>
-            <Box p={2} sx={boxStyle}>
-              <Typography variant="h6" mb={2}>
-                Sesiones Concurrentes
-              </Typography>
-              <Chart
-                options={barChartOptionsSesiones}
-                series={barChartDataSesiones}
-                type="bar"
-                height={250}
-              />
-            </Box>
-          </Grid>
-          <Grid size={{ xs: 12, md: 4 }}>
-            <Box p={2} sx={boxStyle}>
-              <Typography variant="h6" mb={2}>
-                Conexiones Activas
-              </Typography>
-              <Chart
-                options={barChartOptionsConexiones}
-                series={barChartDataConxiones}
-                type="bar"
-                height={250}
-              />
-            </Box>
-          </Grid>
-
-          <Grid size={{ xs: 12, md: 4 }}>
-            <Box p={2} sx={boxStyle}>
-              <Typography variant="h6" mb={2}>
-                Uso del CPU
-              </Typography>
-              <div>
-                {isLoading && <p>Cargando...</p>}
-                {error && <p>Error: {error}</p>}
-                {!isLoading && !error && barChartDataCPU.length > 0 && (
+          {
+            isLoading ? (
+              <Grid size={{ xs: 12, md: 6 }}><Skeleton animation='wave' height={375} variant="rounded" /></Grid>
+            ) : (
+              <Grid size={{ xs: 12, md: 6 }}>
+                <Box p={2} sx={boxStyle}>
+                  <Typography variant="h6" mb={2}>
+                    Latencia Promedio
+                  </Typography>
                   <Chart
-                    options={chartOptionsCPU}
-                    series={[{ name: 'Uso de CPU (Segundos)', data: barChartDataCPU.map(item => item.cpuUsage) }]}
+                    options={barChartOptionsLatencia}
+                    series={barChartDataLatencia}
                     type="bar"
                     height={250}
                   />
-                )}
-                {!isLoading && !error && barChartDataCPU.length === 0 && <p>No hay datos de uso de CPU disponibles.</p>}
-              </div>
-            </Box>
-          </Grid>
+                </Box>
+              </Grid>
+            )
+          }
+          {
+            isLoading ? (
+              <Grid size={{ xs: 12, md: 6 }}><Skeleton animation='wave' height={375} variant="rounded" /></Grid>
+            ) : (
+              <Grid size={{ xs: 12, md: 6 }}>
+                <Box p={2} sx={boxStyle}>
+                  <Typography variant="h6" mb={2}>
+                    Uso de Memoria
+                  </Typography>
+                  <Chart options={lineChartOptionsMemoria} series={lineChartDataMemoria} type="line" height={250} />
+                </Box>
+              </Grid>
+            )
+          }
+          {
+            isLoading ? (
+              <Grid size={{ xs: 12, md: 6 }}><Skeleton animation='wave' height={375} variant="rounded" /></Grid>
+            ) : (
+              <Grid size={{ xs: 12, md: 6 }}>
+                <Box p={2} sx={boxStyle}>
+                  <Typography variant="h6" mb={2}>
+                    Sesiones Concurrentes
+                  </Typography>
+                  <Chart
+                    options={barChartOptionsSesiones}
+                    series={barChartDataSesiones}
+                    type="bar"
+                    height={250}
+                  />
+                </Box>
+              </Grid>
+            )
+          }
+          {
+            isLoading ? (
+              <Grid size={{ xs: 12, md: 6 }}><Skeleton animation='wave' height={375} variant="rounded" /></Grid>
+            ) : (
+              <Grid size={{ xs: 12, md: 6 }}>
+                <Box p={2} sx={boxStyle}>
+                  <Typography variant="h6" mb={2}>
+                    Uso del CPU
+                  </Typography>
+                  <div>
+                    {isLoading && <p>Cargando...</p>}
+                    {error && <p>Error: {error}</p>}
+                    {!isLoading && !error && barChartDataCPU.length > 0 && (
+                      <Chart
+                        options={chartOptionsCPU}
+                        series={[{ name: 'Uso de CPU (Segundos)', data: barChartDataCPU.map(item => item.cpuUsage) }]}
+                        type="bar"
+                        height={250}
+                      />
+                    )}
+                    {!isLoading && !error && barChartDataCPU.length === 0 && <p>No hay datos de uso de CPU disponibles.</p>}
+                  </div>
+                </Box>
+              </Grid>
+            )
+          }
+          {
+            isLoading ? (
+              <Grid size={{ xs: 12, md: 12 }}><Skeleton animation='wave' height={375} variant="rounded" /></Grid>
+            ) : (
+              <Grid size={{ xs: 12, md: 12 }}>
+                <Box p={2} sx={boxStyle}>
+                  <Typography variant="h6" mb={2}>
+                    Recursos por sesión
+                  </Typography>
+                  <div className="tabla-recursos">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>SID</th>
+                          <th>Serial#</th>
+                          <th>Username</th>
+                          <th>Program</th>
+                          <th>OS Process ID</th>
+                          <th>PGA Used (MB)</th>
+                          <th>PGA Allocated (MB)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {data.map((session, index) => (
+                          <tr key={index}>
+                            <td>{session.SID}</td>
+                            <td>{session["SERIAL#"]}</td>
+                            <td>{session.USERNAME}</td>
+                            <td>{session.PROGRAM}</td>
+                            <td>{session["OS Process ID"]}</td>
+                            <td>{session["PGA Used (MB)"]}</td>
+                            <td>{session["PGA Allocated (MB)"]}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </Box>
+              </Grid>
+            )
+          }
+          {
+            isLoading ? (
+              <Grid size={{ xs: 12, md: 12 }}><Skeleton animation='wave' height={375} variant="rounded" /></Grid>
+            ) : (
+              <Grid size={{ xs: 12, md: 12 }}>
+                <Box p={2} sx={boxStyle}>
+                  <Typography variant="h6" mb={2}>
+                    Eventos de Espera Críticos
+                  </Typography>
+                  <div className="tabla-recursos">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>EVENT</th>
+                          <th>TOTAL_WAITS</th>
+                          <th>TIME_WAITED_MS</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {eventData.map((row, index) => (
+                          <tr key={index}>
+                            <td>{row.EVENT}</td>
+                            <td>{row.TOTAL_WAITS}</td>
+                            <td>{row.TIME_WAITED_MS.toFixed(3)}</td>
+                          </tr>
+                        ))}
+                      </tbody>
 
-          <Grid size={{ xs: 12, md: 12 }}>
-            <Box p={2} sx={boxStyle}>
-              <Typography variant="h6" mb={2}>
-                Recursos por sesión
-              </Typography>
-              <div className="tabla-recursos">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>SID</th>
-                      <th>Serial#</th>
-                      <th>Username</th>
-                      <th>Program</th>
-                      <th>OS Process ID</th>
-                      <th>PGA Used (MB)</th>
-                      <th>PGA Allocated (MB)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data.map((session, index) => (
-                      <tr key={index}>
-                        <td>{session.SID}</td>
-                        <td>{session["SERIAL#"]}</td>
-                        <td>{session.USERNAME}</td>
-                        <td>{session.PROGRAM}</td>
-                        <td>{session["OS Process ID"]}</td>
-                        <td>{session["PGA Used (MB)"]}</td>
-                        <td>{session["PGA Allocated (MB)"]}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </Box>
-          </Grid>
+                    </table>
+                  </div>
 
-          <Grid size={{ xs: 12, md: 12 }}>
-            <Box p={2} sx={boxStyle}>
-              <Typography variant="h6" mb={2}>
-                Eventos de Espera Críticos
-              </Typography>
-              <div className="tabla-recursos">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>EVENT</th>
-                      <th>TOTAL_WAITS</th>
-                      <th>TIME_WAITED_MS</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {eventData.map((row, index) => (
-                      <tr key={index}>
-                        <td>{row.EVENT}</td>
-                        <td>{row.TOTAL_WAITS}</td>
-                        <td>{row.TIME_WAITED_MS.toFixed(3)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
+                </Box>
+              </Grid>
+            )
+          }
+          {
+            isLoading ? (
+              <Grid size={{ xs: 12, md: 12 }}><Skeleton animation='wave' height={375} variant="rounded" /></Grid>
+            ) : (
+              <Grid size={{ xs: 12, md: 12 }}>
+                <Box p={2} sx={boxStyle}>
+                  <Typography variant="h6" mb={2}>
+                    Monitoreo de Esperas y Recursos
+                  </Typography>
+                  <div className="tabla-recursos" style={{ maxHeight: '400px', overflowY: 'auto' }}>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>SID</th>
+                          <th>SERIAL_NUMBER</th>
+                          <th>USERNAME</th>
+                          <th>STATUS</th>
+                          <th>EVENT</th>
+                          <th>WAIT_TIME</th>
+                          <th>SECONDS_IN_WAIT</th>
+                          <th>STATE</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {sessionData.map((row, index) => (
+                          <tr key={index}>
+                            <td>{row.SID}</td>
+                            <td>{row["SERIAL#"]}</td>
+                            <td>{row.USERNAME}</td>
+                            <td>{row.STATUS}</td>
+                            <td>{row.EVENT}</td>
+                            <td>{row.WAIT_TIME}</td>
+                            <td>{row.SECONDS_IN_WAIT}</td>
+                            <td>{row.STATE}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </Box>
+              </Grid>
+            )
+          }
+          {
+            isLoading ? (
+              <Grid size={{ xs: 12, md: 12 }}><Skeleton animation='wave' height={375} variant="rounded" /></Grid>
+            ) : (
+              <Grid size={{ xs: 12, md: 12 }}>
+                <Box p={2} sx={boxStyle}>
+                  <Typography variant="h6" mb={2}>
+                    Las 10 Consultas que Consumen Más Memoria
+                  </Typography>
+                  <div className="tabla-recursos" style={{ maxHeight: '400px', overflowY: 'auto' }}>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>SQL_TEXT</th>
+                          <th>BUFFER_GETS</th>
+                          <th>DISK_READS</th>
+                          <th>EXECUTIONS</th>
+                          <th>BUFFER_GETS_PROMEDIO</th>
+                          <th>DISK_READS_PROMEDIO</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {primerasConsultas.slice(0, 10).map((row, index) => (
+                          <tr key={index}>
+                            <td style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word', maxWidth: '200px' }}>
+                              {row.SQL_TEXT}
+                            </td>
+                            <td>{row.BUFFER_GETS}</td>
+                            <td>{row.DISK_READS}</td>
+                            <td>{row.EXECUTIONS}</td>
+                            <td>{row.BUFFER_GETS_PROMEDIO}</td>
+                            <td>{row.DISK_READS_PROMEDIO}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
 
-                </table>
-              </div>
-
-            </Box>
-          </Grid>
-
-          <Grid size={{ xs: 12, md: 12 }}>
-            <Box p={2} sx={boxStyle}>
-              <Typography variant="h6" mb={2}>
-                Monitoreo de Esperas y Recursos
-              </Typography>
-              <div className="tabla-recursos" style={{ maxHeight: '400px', overflowY: 'auto' }}>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>SID</th>
-                      <th>SERIAL_NUMBER</th>
-                      <th>USERNAME</th>
-                      <th>STATUS</th>
-                      <th>EVENT</th>
-                      <th>WAIT_TIME</th>
-                      <th>SECONDS_IN_WAIT</th>
-                      <th>STATE</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {sessionData.map((row, index) => (
-                      <tr key={index}>
-                        <td>{row.SID}</td>
-                        <td>{row["SERIAL#"]}</td>
-                        <td>{row.USERNAME}</td>
-                        <td>{row.STATUS}</td>
-                        <td>{row.EVENT}</td>
-                        <td>{row.WAIT_TIME}</td>
-                        <td>{row.SECONDS_IN_WAIT}</td>
-                        <td>{row.STATE}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-            </Box>
-          </Grid>
-
-          <Grid size={{ xs: 12, md: 12 }}>
-            <Box p={2} sx={boxStyle}>
-              <Typography variant="h6" mb={2}>
-                Las 10 Consultas que Consumen Más Memoria
-              </Typography>
-              <div className="tabla-recursos" style={{ maxHeight: '400px', overflowY: 'auto' }}>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>SQL_TEXT</th>
-                      <th>BUFFER_GETS</th>
-                      <th>DISK_READS</th>
-                      <th>EXECUTIONS</th>
-                      <th>BUFFER_GETS_PROMEDIO</th>
-                      <th>DISK_READS_PROMEDIO</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {primerasConsultas.slice(0, 10).map((row, index) => (
-                      <tr key={index}>
-                        <td style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word', maxWidth: '200px' }}>
-                          {row.SQL_TEXT}
-                        </td>
-                        <td>{row.BUFFER_GETS}</td>
-                        <td>{row.DISK_READS}</td>
-                        <td>{row.EXECUTIONS}</td>
-                        <td>{row.BUFFER_GETS_PROMEDIO}</td>
-                        <td>{row.DISK_READS_PROMEDIO}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-            </Box>
-          </Grid>
-
-          <Grid size={{ xs: 12, md: 12 }}>
-            <Box p={2} sx={boxStyle}>
-              <Typography variant="h6" mb={2}>
-                Las 10 Consultas que Consumen Más Recursos
-              </Typography>
-              <div className="tabla-recursos" style={{ maxHeight: '400px', overflowY: 'auto' }}>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>SQL_TEXT</th>
-                      <th>EXECUTIONS</th>
-                      <th>TIEMPO_TOTAL_SEG</th>
-                      <th>CPU_TOTAL_SEG</th>
-                      <th>TIEMPO_PROMEDIO_SEG</th>
-                      <th>CPU_PROMEDIO_SEG</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {primerasConsultasRecursos.slice(0, 10).map((row, index) => (
-                      <tr key={index}>
-                        <td style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word', maxWidth: '200px' }}>
-                          {row.SQL_TEXT}
-                        </td>
-                        <td>{row.EXECUTIONS}</td>
-                        <td>{row.TIEMPO_TOTAL_SEG}</td>
-                        <td>{row.CPU_TOTAL_SEG}</td>
-                        <td>{row.TIEMPO_PROMEDIO_SEG}</td>
-                        <td>{row.CPU_PROMEDIO_SEG}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </Box>
-          </Grid>
+                </Box>
+              </Grid>
+            )
+          }
+          {
+            isLoading ? (
+              <Grid size={{ xs: 12, md: 12 }}><Skeleton animation='wave' height={375} variant="rounded" /></Grid>
+            ) : (
+              <Grid size={{ xs: 12, md: 12 }}>
+                <Box p={2} sx={boxStyle}>
+                  <Typography variant="h6" mb={2}>
+                    Las 10 Consultas que Consumen Más Recursos
+                  </Typography>
+                  <div className="tabla-recursos" style={{ maxHeight: '400px', overflowY: 'auto' }}>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>SQL_TEXT</th>
+                          <th>EXECUTIONS</th>
+                          <th>TIEMPO_TOTAL_SEG</th>
+                          <th>CPU_TOTAL_SEG</th>
+                          <th>TIEMPO_PROMEDIO_SEG</th>
+                          <th>CPU_PROMEDIO_SEG</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {primerasConsultasRecursos.slice(0, 10).map((row, index) => (
+                          <tr key={index}>
+                            <td style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word', maxWidth: '200px' }}>
+                              {row.SQL_TEXT}
+                            </td>
+                            <td>{row.EXECUTIONS}</td>
+                            <td>{row.TIEMPO_TOTAL_SEG}</td>
+                            <td>{row.CPU_TOTAL_SEG}</td>
+                            <td>{row.TIEMPO_PROMEDIO_SEG}</td>
+                            <td>{row.CPU_PROMEDIO_SEG}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </Box>
+              </Grid>
+            )
+          }
         </Grid>
       </Box>
     </Box>
