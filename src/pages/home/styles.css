@@ -1,0 +1,29 @@
+.tabla-recursos {
+    padding: 20px;
+}
+
+.tabla-recursos table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.tabla-recursos th,
+.tabla-recursos td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.tabla-recursos th {
+    background-color: #37a4fd;
+    color: white;
+}
+
+.tabla-recursos tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.tabla-recursos tr:hover {
+    background-color: #ddd;
+}
